@@ -1,0 +1,71 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+enum TestRunStatus {
+  Passed
+  Failed
+  Blocked
+}
+
+model TestPlan {
+  id          String      @id @default(cuid())
+  name        String
+  description String?
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+  testSuites  TestSuite[]
+
+  @@index([name])
+}
+
+model TestSuite {
+  id          String     @id @default(cuid())
+  name        String
+  description String?
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+
+  testPlanId  String
+  testPlan    TestPlan   @relation(fields: [testPlanId], references: [id], onDelete: Cascade)
+  testCases   TestCase[]
+
+  @@index([testPlanId])
+  @@index([name])
+}
+
+model TestCase {
+  id             String    @id @default(cuid())
+  title          String
+  preconditions  String?
+  steps          Json
+  expectedResult String
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+
+  testSuiteId    String
+  testSuite      TestSuite @relation(fields: [testSuiteId], references: [id], onDelete: Cascade)
+  testRuns       TestRun[]
+
+  @@index([testSuiteId])
+  @@index([title])
+}
+
+model TestRun {
+  id         String        @id @default(cuid())
+  status     TestRunStatus
+  evidence   String?
+  executedBy String
+  executedAt DateTime      @default(now())
+
+  testCaseId String
+  testCase   TestCase      @relation(fields: [testCaseId], references: [id], onDelete: Cascade)
+
+  @@index([testCaseId])
+  @@index([status])
+  @@index([executedAt])
+}

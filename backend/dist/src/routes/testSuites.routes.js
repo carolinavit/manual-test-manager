@@ -1,0 +1,12 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.testSuiteRoutes = void 0;
+const express_1 = require("express");
+const testSuites_controller_1 = require("../controllers/testSuites.controller");
+const testCases_controller_1 = require("../controllers/testCases.controller");
+exports.testSuiteRoutes = (0, express_1.Router)();
+exports.testSuiteRoutes.post("/", testSuites_controller_1.testSuitesController.create);
+exports.testSuiteRoutes.get("/:id", testSuites_controller_1.testSuitesController.get);
+exports.testSuiteRoutes.patch("/:id", testSuites_controller_1.testSuitesController.update);
+exports.testSuiteRoutes.delete("/:id", testSuites_controller_1.testSuitesController.remove);
+exports.testSuiteRoutes.get("/:testSuiteId/test-cases", testCases_controller_1.testCasesController.listBySuite);

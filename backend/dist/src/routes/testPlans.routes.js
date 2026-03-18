@@ -1,0 +1,13 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.testPlanRoutes = void 0;
+const express_1 = require("express");
+const testPlans_controller_1 = require("../controllers/testPlans.controller");
+const testSuites_controller_1 = require("../controllers/testSuites.controller");
+exports.testPlanRoutes = (0, express_1.Router)();
+exports.testPlanRoutes.get("/", testPlans_controller_1.testPlansController.list);
+exports.testPlanRoutes.post("/", testPlans_controller_1.testPlansController.create);
+exports.testPlanRoutes.get("/:id", testPlans_controller_1.testPlansController.get);
+exports.testPlanRoutes.patch("/:id", testPlans_controller_1.testPlansController.update);
+exports.testPlanRoutes.delete("/:id", testPlans_controller_1.testPlansController.remove);
+exports.testPlanRoutes.get("/:testPlanId/test-suites", testSuites_controller_1.testSuitesController.listByPlan);
