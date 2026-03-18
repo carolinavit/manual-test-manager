@@ -1,6 +1,6 @@
-# Manual Test Plans (inspirado no Azure DevOps)
+# Manual Test Manager
 
-Aplicação simples para **organização e execução de testes manuais**, com a hierarquia:
+Manual Test Plans (inspirado no Azure DevOps): aplicação simples para **organização e execução de testes manuais**, com a hierarquia:
 
 **Test Plan → Test Suite → Test Cases → Test Runs (histórico)**
 
@@ -88,4 +88,3 @@ UI sobe em `http://localhost:5173`.
 ## Seed inicial
 
 O seed cria um plano “Release 1.0 - Smoke”, com suites/cases e algumas execuções (Passed/Failed/Blocked).
-
